@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Decodr — AI, decoded for non-tech professionals</title>
+  <meta name="description" content="The Decodr is where non-tech professionals come to understand AI. No jargon, no clickbait, no hype. Just well-researched content, every week." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #FFFFFF;
+      --bg2: #F9F9F8;
+      --border: #E5E7EB;
+      --text: #0A0A0A;
+      --muted: #6B7280;
+      --dimmed: #9CA3AF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+    .nav-logo { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--text); letter-spacing: -0.3px; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { font-size: 14px; color: var(--muted); text-decoration: none; font-weight: 400; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-btn { background: var(--text); color: #fff; border: none; padding: 8px 18px; border-radius: 5px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+    .nav-btn:hover { opacity: 0.85; }
+
+    /* ── HERO ── */
+    .hero { padding: 6rem 2.5rem 5rem; max-width: 900px; margin: 0 auto; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 400; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2rem; }
+    .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: #16A34A; animation: pulse 2s infinite; flex-shrink: 0; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    .hero h1 { font-family: 'Instrument Serif', serif; font-size: 62px; font-weight: 400; line-height: 1.08; letter-spacing: -2px; color: var(--text); margin-bottom: 1.75rem; }
+    .hero h1 span { display: block; color: var(--muted); }
+    .hero-sub { font-size: 17px; color: var(--muted); line-height: 1.75; max-width: 500px; margin-bottom: 2.75rem; font-weight: 300; }
+    .hero-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .btn-primary { background: var(--text); color: #fff; border: none; padding: 13px 24px; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); padding: 13px 24px; border-radius: 6px; font-size: 14px; font-weight: 400; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s; }
+    .btn-ghost:hover { border-color: #9CA3AF; color: var(--text); }
+
+    /* ── PROOF BAR ── */
+    .proof { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 2rem 2.5rem; display: flex; align-items: center; justify-content: center; }
+    .proof-item { text-align: center; padding: 0 3rem; }
+    .proof-item:not(:last-child) { border-right: 1px solid var(--border); }
+    .proof-num { font-family: 'Instrument Serif', serif; font-size: 30px; color: var(--text); letter-spacing: -0.5px; line-height: 1; margin-bottom: 4px; }
+    .proof-label { font-size: 12px; color: var(--muted); font-weight: 400; }
+
+    /* ── WHAT SECTION ── */
+    .what { padding: 5.5rem 2.5rem; max-width: 900px; margin: 0 auto; }
+    .section-tag { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dimmed); margin-bottom: 1.25rem; }
+    .what h2 { font-family: 'Instrument Serif', serif; font-size: 38px; font-weight: 400; letter-spacing: -0.8px; color: var(--text); margin-bottom: 1rem; line-height: 1.2; max-width: 540px; }
+    .what-body { font-size: 15px; color: var(--muted); line-height: 1.8; max-width: 520px; margin-bottom: 3.5rem; font-weight: 300; }
+    .offerings { display: grid; grid-template-columns: 1fr 1fr 1fr; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .offering { padding: 2rem 1.75rem; border-right: 1px solid var(--border); }
+    .offering:last-child { border-right: none; }
+    .offering-num { font-family: 'Instrument Serif', serif; font-size: 36px; color: var(--dimmed); line-height: 1; margin-bottom: 1.25rem; letter-spacing: -1px; }
+    .offering h3 { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 0.5rem; }
+    .offering p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+    .offering-live { display: inline-block; font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #16A34A; border: 1px solid #BBF7D0; background: #F0FDF4; padding: 3px 8px; border-radius: 100px; margin-top: 1rem; }
+
+    /* ── NEWSLETTER SECTION ── */
+    .newsletter { padding: 5.5rem 2.5rem; border-top: 1px solid var(--border); max-width: 900px; margin: 0 auto; }
+    .newsletter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .nl-left h2 { font-family: 'Instrument Serif', serif; font-size: 36px; font-weight: 400; letter-spacing: -0.8px; line-height: 1.2; color: var(--text); margin-bottom: 1rem; }
+    .nl-left p { font-size: 15px; color: var(--muted); line-height: 1.75; margin-bottom: 2rem; font-weight: 300; }
+    .nl-form { display: flex; flex-direction: column; gap: 8px; margin-bottom: 0.75rem; }
+    .nl-form input { padding: 11px 14px; background: #fff; border: 1px solid var(--border); border-radius: 5px; color: var(--text); font-size: 14px; font-family: 'DM Sans', sans-serif; outline: none; width: 100%; transition: border-color 0.2s; }
+    .nl-form input::placeholder { color: var(--dimmed); }
+    .nl-form input:focus { border-color: #9CA3AF; }
+    .nl-form button { background: var(--text); color: #fff; border: none; padding: 12px; border-radius: 5px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; width: 100%; transition: opacity 0.2s; }
+    .nl-form button:hover { opacity: 0.85; }
+    .nl-micro { font-size: 12px; color: var(--dimmed); }
+    .nl-right { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .nl-point { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); }
+    .nl-point:last-child { border-bottom: none; }
+    .nl-point h4 { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .nl-point p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    /* ── SKILLS SECTION ── */
+    .skills { padding: 5.5rem 2.5rem; border-top: 1px solid var(--border); max-width: 900px; margin: 0 auto; }
+    .skills h2 { font-family: 'Instrument Serif', serif; font-size: 36px; font-weight: 400; letter-spacing: -0.8px; line-height: 1.2; color: var(--text); margin-bottom: 0.5rem; }
+    .skills-subhead { font-size: 15px; color: var(--muted); margin-bottom: 3rem; font-weight: 300; }
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 1.5rem; }
+    .skill-card { padding: 1.75rem; border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+    .skill-card:last-child { border-right: none; }
+    .skill-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dimmed); margin-bottom: 0.75rem; }
+    .skill-card h4 { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 0.5rem; line-height: 1.3; }
+    .skill-card p { font-size: 13px; color: var(--muted); line-height: 1.65; flex: 1; }
+    .skill-dl { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--muted); margin-top: 1.25rem; text-decoration: none; padding-top: 1rem; border-top: 1px solid var(--border); transition: color 0.2s; }
+    .skill-dl:hover { color: var(--text); }
+    .skills-cta-row { text-align: center; }
+    .skills-cta-row a { font-size: 14px; color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; transition: color 0.2s; }
+    .skills-cta-row a:hover { color: var(--text); }
+
+    /* ── ABOUT SECTION ── */
+    .about { padding: 5.5rem 2.5rem; border-top: 1px solid var(--border); max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .about-left h2 { font-family: 'Instrument Serif', serif; font-size: 36px; font-weight: 400; letter-spacing: -0.8px; line-height: 1.2; color: var(--text); margin-bottom: 1.25rem; }
+    .about-left p { font-size: 15px; color: var(--muted); line-height: 1.75; margin-bottom: 0.85rem; font-weight: 300; }
+    .about-right { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 2rem; }
+    .about-photo { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; object-position: center 15%; margin-bottom: 1rem; display: block; border: 1px solid var(--border); }
+    .about-right h3 { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+    .about-right .role { font-size: 13px; color: var(--muted); margin-bottom: 1.25rem; }
+    .about-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .atag { font-size: 11px; color: var(--muted); border: 1px solid var(--border); background: var(--bg); padding: 4px 10px; border-radius: 100px; font-weight: 400; }
+
+    /* ── FINAL CTA ── */
+    .fcta { padding: 6rem 2.5rem; border-top: 1px solid var(--border); text-align: center; background: var(--bg2); }
+    .fcta h2 { font-family: 'Instrument Serif', serif; font-size: 48px; font-weight: 400; letter-spacing: -1.5px; line-height: 1.1; color: var(--text); margin-bottom: 1rem; max-width: 560px; margin-left: auto; margin-right: auto; }
+    .fcta p { font-size: 15px; color: var(--muted); margin-bottom: 2rem; }
+    .fcta-form { display: flex; gap: 8px; max-width: 380px; margin: 0 auto 0.75rem; }
+    .fcta-form input { flex: 1; padding: 11px 14px; background: #fff; border: 1px solid var(--border); border-radius: 5px; color: var(--text); font-size: 14px; font-family: 'DM Sans', sans-serif; outline: none; transition: border-color 0.2s; }
+    .fcta-form input::placeholder { color: var(--dimmed); }
+    .fcta-form input:focus { border-color: #9CA3AF; }
+    .fcta-form button { background: var(--text); color: #fff; border: none; padding: 11px 18px; border-radius: 5px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; white-space: nowrap; transition: opacity 0.2s; }
+    .fcta-form button:hover { opacity: 0.85; }
+    .fcta-micro { font-size: 12px; color: var(--dimmed); }
+
+    /* ── FOOTER ── */
+    .footer { padding: 1.75rem 2.5rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .footer-logo { font-family: 'Instrument Serif', serif; font-size: 15px; color: var(--muted); text-decoration: none; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 12px; color: var(--dimmed); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--muted); }
+
+    /* ── MOBILE RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav { padding: 1rem 1.25rem; }
+      .nav-links a { display: none; }
+      .hero { padding: 3rem 1.25rem 2.5rem; }
+      .hero h1 { font-size: 36px; letter-spacing: -0.8px; }
+      .hero-sub { font-size: 15px; }
+      .hero-actions { flex-direction: column; }
+      .btn-primary, .btn-ghost { width: 100%; text-align: center; }
+      .proof { padding: 1.5rem 0.5rem; }
+      .proof-item { padding: 0 1rem; }
+      .proof-num { font-size: 22px; }
+      .proof-label { font-size: 10px; }
+      .what { padding: 3rem 1.25rem; }
+      .what h2 { font-size: 26px; max-width: 100%; }
+      .offerings { grid-template-columns: 1fr; }
+      .offering { border-right: none; border-bottom: 1px solid var(--border); }
+      .offering:last-child { border-bottom: none; }
+      .newsletter { padding: 3rem 1.25rem; }
+      .newsletter-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .nl-left h2 { font-size: 26px; }
+      .skills { padding: 3rem 1.25rem; }
+      .skills h2 { font-size: 26px; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .skill-card { border-right: none; border-bottom: 1px solid var(--border); }
+      .skill-card:last-child { border-bottom: none; }
+      .about { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.25rem; }
+      .about-left h2 { font-size: 26px; }
+      .fcta { padding: 3rem 1.25rem; }
+      .fcta h2 { font-size: 28px; letter-spacing: -0.5px; }
+      .fcta-form { flex-direction: column; }
+      .fcta-form button { width: 100%; }
+      .footer { padding: 1.25rem; flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="#" class="nav-logo">The Decodr</a>
+    <div class="nav-links">
+      <a href="#newsletter">Newsletter</a>
+      <a href="#skills">Skills</a>
+      <a href="#about">About</a>
+      <a href="REPLACE_WITH_BEEHIIV_URL" class="nav-btn">Subscribe</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-eyebrow">
+      <span class="hero-dot"></span>
+      AI without the noise
+    </div>
+    <h1>Your destination for AI<span>that actually makes sense</span></h1>
+    <p class="hero-sub">The Decodr is where non-tech professionals come to understand AI. No jargon, no clickbait, no "X just killed Y" headlines. Just well-researched content that respects your intelligence and your time.</p>
+    <div class="hero-actions">
+      <a href="REPLACE_WITH_BEEHIIV_URL" class="btn-primary">Subscribe to the newsletter →</a>
+      <a href="#skills" class="btn-ghost">Browse AI skills</a>
+    </div>
+  </section>
+
+  <div class="proof">
+    <div class="proof-item">
+      <div class="proof-num">8,000+</div>
+      <div class="proof-label">professionals reading</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-num">Weekly</div>
+      <div class="proof-label">researched, not rushed</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-num">Zero</div>
+      <div class="proof-label">sensationalist headlines</div>
+    </div>
+  </div>
+
+  <section class="what">
+    <p class="section-tag">What is The Decodr</p>
+    <h2>More than a newsletter. A place to actually get AI.</h2>
+    <p class="what-body">The AI space is loud, fast, and full of hot takes dressed up as insight. The Decodr exists to cut through it. With content that is rigorously researched, plainly written, and built for professionals who don't have a computer science degree but can't afford to be left behind.</p>
+    <div class="offerings">
+      <div class="offering">
+        <div class="offering-num">01</div>
+        <h3>The Newsletter</h3>
+        <p>A weekly edition that decodes what's actually happening in AI. Researched properly, written plainly, no hype.</p>
+        <span class="offering-live">Live</span>
+      </div>
+      <div class="offering">
+        <div class="offering-num">02</div>
+        <h3>AI Skills and Prompts</h3>
+        <p>Ready-to-use Claude skills and prompt templates you can download and deploy immediately. No setup, no learning curve.</p>
+        <span class="offering-live">Live</span>
+      </div>
+      <div class="offering">
+        <div class="offering-num">03</div>
+        <h3>More coming</h3>
+        <p>AI tools, expert conversations, and more. All built around one idea: AI should be accessible to everyone, not just engineers.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="newsletter" id="newsletter">
+    <div class="newsletter-grid">
+      <div class="nl-left">
+        <p class="section-tag">The Newsletter</p>
+        <h2>AI, decoded. Every week.</h2>
+        <p>One focused edition, every week. Whether it's a new AI development, a how-to guide, or a tool breakdown. Everything is researched thoroughly and written in plain English.</p>
+        <div class="nl-form">
+          <input type="email" placeholder="Your email address" />
+          <button onclick="window.location.href='REPLACE_WITH_BEEHIIV_URL'">Subscribe →</button>
+        </div>
+        <p class="nl-micro">Free. No spam. Unsubscribe anytime.</p>
+      </div>
+      <div class="nl-right">
+        <div class="nl-point">
+          <h4>Actually researched</h4>
+          <p>Every edition is built on primary sources, not recycled takes from other newsletters. If we say something, we can back it up.</p>
+        </div>
+        <div class="nl-point">
+          <h4>No sensationalism, ever</h4>
+          <p>The AI space runs on hot takes and clickbait. We don't. No "X just killed Y" headlines, no manufactured panic, no hype cycles.</p>
+        </div>
+        <div class="nl-point">
+          <h4>Built for your work</h4>
+          <p>Not theory. Every edition connects AI to real implications for marketers, founders, and operators.</p>
+        </div>
+        <div class="nl-point">
+          <h4>Plain language, always</h4>
+          <p>No prerequisite knowledge required. If something needs context, we give it to you without making you feel dumb for asking.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="skills" id="skills">
+    <p class="section-tag">AI Skills and Prompts</p>
+    <h2>Stop starting from scratch every time.</h2>
+    <p class="skills-subhead">Ready-made Claude skills and prompt templates. Download, use, done.</p>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-tag">Writing</div>
+        <h4>LinkedIn post writer</h4>
+        <p>Writes sharp, on-brand LinkedIn posts without sounding like every other creator.</p>
+        <a class="skill-dl" href="REPLACE_WITH_SKILL_URL">↓ Download free</a>
+      </div>
+      <div class="skill-card">
+        <div class="skill-tag">Research</div>
+        <h4>Deep research assistant</h4>
+        <p>Structured prompt that forces Claude to go beyond surface-level answers with real sources.</p>
+        <a class="skill-dl" href="REPLACE_WITH_SKILL_URL">↓ Download free</a>
+      </div>
+      <div class="skill-card">
+        <div class="skill-tag">Marketing</div>
+        <h4>Campaign brief builder</h4>
+        <p>Turn a half-formed idea into a structured campaign brief in under five minutes.</p>
+        <a class="skill-dl" href="REPLACE_WITH_SKILL_URL">↓ Download free</a>
+      </div>
+    </div>
+    <div class="skills-cta-row">
+      <a href="REPLACE_WITH_SKILLS_PAGE_URL">View all skills and prompts →</a>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="about-left">
+      <p class="section-tag">Who's behind this</p>
+      <h2>Built by someone who isn't a developer either.</h2>
+      <p>Ankur Jhaveri spent 12 years in fintech and consumer tech, not in engineering. He started The Decodr because every AI resource he found was either too technical, too shallow, or too loud.</p>
+      <p>The Decodr is for professionals who are curious, capable, and tired of being talked down to — or hyped up.</p>
+    </div>
+    <div class="about-right">
+      <img class="about-photo" src="ankur.png" alt="Ankur Jhaveri" />
+      <h3>Ankur Jhaveri</h3>
+      <p class="role">Founder, The Decodr</p>
+      <div class="about-tags">
+        <span class="atag">12 yrs in fintech</span>
+        <span class="atag">Not a developer</span>
+        <span class="atag">Mumbai</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="fcta">
+    <h2>The most AI-fluent person in the room. That's you.</h2>
+    <p>Join 8,000+ professionals who read The Decodr every week.</p>
+    <div class="fcta-form">
+      <input type="email" placeholder="Your email address" />
+      <button onclick="window.location.href='REPLACE_WITH_BEEHIIV_URL'">Subscribe →</button>
+    </div>
+    <p class="fcta-micro">Free. No spam. Unsubscribe anytime.</p>
+  </section>
+
+  <footer class="footer">
+    <a href="#" class="footer-logo">The Decodr</a>
+    <div class="footer-links">
+      <a href="#newsletter">Newsletter</a>
+      <a href="#skills">Skills</a>
+      <a href="REPLACE_WITH_LINKEDIN_URL" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </footer>
+
+</body>
+</html>
