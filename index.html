@@ -54,7 +54,7 @@
     .nav-links .nav-btn:hover { opacity: 0.85; }
 
     /* ── HERO ── */
-    .hero { padding: 6rem 2.5rem 5rem; max-width: 900px; margin: 0 auto; }
+    .hero { padding: 4rem 2.5rem 2rem; max-width: 900px; margin: 0 auto; }
     .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 400; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2rem; }
     .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: #16A34A; animation: pulse 2s infinite; flex-shrink: 0; }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
@@ -68,7 +68,7 @@
     .btn-ghost:hover { border-color: #9CA3AF; color: var(--text); }
 
     /* ── PROOF BAR ── */
-    .proof { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 2rem 2.5rem; display: flex; align-items: center; justify-content: center; }
+    .proof { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1.5rem 2.5rem; display: flex; align-items: center; justify-content: center; margin-top: 2rem; }
     .proof-item { text-align: center; padding: 0 3rem; }
     .proof-item:not(:last-child) { border-right: 1px solid var(--border); }
     .proof-num { font-family: 'Instrument Serif', serif; font-size: 30px; color: var(--text); letter-spacing: -0.5px; line-height: 1; margin-bottom: 4px; }
@@ -80,12 +80,14 @@
     .what h2 { font-family: 'Instrument Serif', serif; font-size: 38px; font-weight: 400; letter-spacing: -0.8px; color: var(--text); margin-bottom: 1rem; line-height: 1.2; max-width: 540px; }
     .what-body { font-size: 16px; color: var(--muted); line-height: 1.8; max-width: 520px; margin-bottom: 3.5rem; font-weight: 300; }
     .offerings { display: grid; grid-template-columns: 1fr 1fr 1fr; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-    .offering { padding: 2rem 1.75rem; border-right: 1px solid var(--border); }
+    .offering { padding: 2rem 1.75rem; border-right: 1px solid var(--border); display: flex; flex-direction: column; }
     .offering:last-child { border-right: none; }
     .offering-num { font-family: 'Instrument Serif', serif; font-size: 36px; color: var(--dimmed); line-height: 1; margin-bottom: 1.25rem; letter-spacing: -1px; }
     .offering h3 { font-size: 17px; font-weight: 500; color: var(--text); margin-bottom: 0.5rem; }
-    .offering p { font-size: 15px; color: var(--muted); line-height: 1.7; }
-    .offering-live { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #16A34A; border: 1px solid #BBF7D0; background: #F0FDF4; padding: 3px 8px; border-radius: 100px; margin-top: 1rem; }
+    .offering p { font-size: 15px; color: var(--muted); line-height: 1.7; flex: 1; }
+    .offering-badge-row { margin-top: 1rem; display: flex; align-items: center; }
+    .offering-live { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #16A34A; border: 1px solid #BBF7D0; background: #F0FDF4; padding: 3px 8px; border-radius: 100px; }
+    .offering-soon { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dimmed); border: 1px solid var(--border); background: var(--bg2); padding: 3px 8px; border-radius: 100px; }
 
     /* ── NEWSLETTER SECTION ── */
     .newsletter { padding: 5.5rem 2.5rem; border-top: 1px solid var(--border); max-width: 900px; margin: 0 auto; }
@@ -125,6 +127,9 @@
     .about-right .role { font-size: 15px; color: var(--muted); margin-bottom: 1.25rem; }
     .about-tags { display: flex; flex-wrap: wrap; gap: 6px; }
     .atag { font-size: 12px; color: var(--muted); border: 1px solid var(--border); background: var(--bg); padding: 4px 10px; border-radius: 100px; font-weight: 400; }
+    .about-link { text-decoration: none; display: inline-block; }
+    .about-link:hover .about-photo { opacity: 0.85; }
+    .about-link:hover h3 { color: var(--muted); }
 
     /* ── FINAL CTA ── */
     .fcta { padding: 6rem 2.5rem; border-top: 1px solid var(--border); text-align: center; background: var(--bg2); }
@@ -143,12 +148,12 @@
     @media (max-width: 768px) {
       .nav { padding: 1rem 1.25rem; }
       .nav-links a { display: none; }
-      .hero { padding: 3rem 1.25rem 2.5rem; }
+      .hero { padding: 2.5rem 1.25rem 0; }
       .hero h1 { font-size: 36px; letter-spacing: -0.8px; }
       .hero-sub { font-size: 16px; }
       .hero-actions { flex-direction: column; }
       .btn-primary, .btn-ghost { width: 100%; text-align: center; }
-      .proof { padding: 1.5rem 0.5rem; }
+      .proof { padding: 1.5rem 0.5rem; margin-top: 1.5rem; }
       .proof-item { padding: 0 1rem; }
       .proof-num { font-size: 22px; }
       .proof-label { font-size: 10px; }
@@ -222,18 +227,25 @@
         <div class="offering-num">01</div>
         <h3>The Newsletter</h3>
         <p>A weekly edition that decodes what's actually happening in AI. Researched properly, written plainly, no hype.</p>
-        <span class="offering-live">Live</span>
+        <div class="offering-badge-row">
+          <span class="offering-live">Live</span>
+        </div>
       </div>
       <div class="offering">
         <div class="offering-num">02</div>
         <h3>AI Skills and Prompts</h3>
         <p>Ready-to-use Claude skills and prompt templates you can download and deploy immediately. No setup, no learning curve.</p>
-        <span class="offering-live">Live</span>
+        <div class="offering-badge-row">
+          <span class="offering-live">Live</span>
+        </div>
       </div>
       <div class="offering">
         <div class="offering-num">03</div>
         <h3>More coming</h3>
         <p>AI tools, expert conversations, and more. All built around one idea: AI should be accessible to everyone, not just engineers.</p>
+        <div class="offering-badge-row">
+          <span class="offering-soon">Coming soon</span>
+        </div>
       </div>
     </div>
   </section>
@@ -302,11 +314,13 @@
       <p class="section-tag">Who's behind this</p>
       <h2>Built by someone who isn't a developer either.</h2>
       <p>Ankur Jhaveri spent 12 years in fintech and consumer tech, not in engineering. He started The Decodr because every AI resource he found was either too technical, too shallow, or too loud.</p>
-      <p>The Decodr is for professionals who are curious, capable, and tired of being talked down to — or hyped up.</p>
+      <p>The Decodr is for professionals who are curious, capable, and tired of being talked down to or hyped up.</p>
     </div>
     <div class="about-right">
-      <img class="about-photo" src="ankur.png" alt="Ankur Jhaveri" />
-      <h3>Ankur Jhaveri</h3>
+      <a href="https://www.linkedin.com/in/ankurajhaveri" target="_blank" rel="noopener" class="about-link">
+        <img class="about-photo" src="ankur.png" alt="Ankur Jhaveri" />
+        <h3>Ankur Jhaveri</h3>
+      </a>
       <p class="role">Founder, The Decodr</p>
       <div class="about-tags">
         <span class="atag">12 yrs in fintech</span>
@@ -328,7 +342,7 @@
     <div class="footer-links">
       <a href="#newsletter">Newsletter</a>
       <a href="#skills">Skills</a>
-      <a href="coming-soon.html" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.linkedin.com/in/ankurajhaveri" target="_blank" rel="noopener">LinkedIn</a>
     </div>
   </footer>
 
