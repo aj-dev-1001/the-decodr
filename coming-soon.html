@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coming Soon — The Decodr</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #FFFFFF;
+      --border: #E5E7EB;
+      --text: #0A0A0A;
+      --muted: #6B7280;
+      --dimmed: #9CA3AF;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--text); letter-spacing: -0.3px; text-decoration: none; }
+    .nav-back { font-size: 14px; color: var(--muted); text-decoration: none; font-weight: 400; transition: color 0.2s; }
+    .nav-back:hover { color: var(--text); }
+
+    /* ── MAIN ── */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 96px;
+      font-weight: 400;
+      letter-spacing: -3px;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+
+    .tagline {
+      font-size: 18px;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    /* ── FOOTER ── */
+    .footer { padding: 1.75rem 2.5rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: center; }
+    .footer-logo { font-family: 'Instrument Serif', serif; font-size: 16px; color: var(--muted); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .nav { padding: 1rem 1.25rem; }
+      h1 { font-size: 56px; letter-spacing: -1.5px; }
+      .tagline { font-size: 16px; }
+      .footer { padding: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">The Decodr</a>
+    <a href="index.html" class="nav-back">← Back to home</a>
+  </nav>
+
+  <main class="main">
+    <h1>Coming Soon</h1>
+    <p class="tagline">Good things take time. Bad things are rushed out and called AI newsletters.</p>
+  </main>
+
+  <footer class="footer">
+    <a href="index.html" class="footer-logo">The Decodr</a>
+  </footer>
+
+</body>
+</html>
