@@ -52,7 +52,6 @@
     .nav-links { display: flex; gap: 2rem; align-items: center; }
     .nav-links a { font-size: 15px; color: var(--muted); text-decoration: none; font-weight: 400; transition: color 0.2s; }
     .nav-links a:hover { color: var(--text); }
-    .nav-btn { background: none; border: none; padding: 0; font: inherit; cursor: pointer; }
     .nav-links .nav-btn { background: var(--text); color: #ffffff !important; border: none; padding: 8px 18px; border-radius: 5px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
     .nav-links .nav-btn:hover { opacity: 0.85; }
 
@@ -201,7 +200,7 @@
     <h1>Your destination for AI<span>that actually makes sense</span></h1>
     <p class="hero-sub">The Decodr is where non-tech professionals come to understand AI. No jargon, no clickbait, no "X just killed Y" headlines. Just well-researched content that respects your intelligence and your time.</p>
     <div class="hero-actions">
-      <button class="nav-btn btn-primary" data-beehiiv-form="82afde12-dcd9-42d3-b5b9-3e3c55d7c268">Subscribe to the newsletter →</button>
+      <button class="btn-primary" data-beehiiv-form="82afde12-dcd9-42d3-b5b9-3e3c55d7c268">Subscribe to the newsletter →</button>
       <a href="#skills" class="btn-ghost">Browse AI skills</a>
     </div>
   </section>
@@ -259,7 +258,7 @@
         <p class="section-tag">The Newsletter</p>
         <h2>AI, decoded. Every week.</h2>
         <p>One focused edition, every week. Whether it's a new AI development, a how-to guide, or a tool breakdown. Everything is researched thoroughly and written in plain English.</p>
-        <button class="nav-btn btn-primary" data-beehiiv-form="82afde12-dcd9-42d3-b5b9-3e3c55d7c268">Subscribe →</button>
+        <button class="btn-primary" data-beehiiv-form="82afde12-dcd9-42d3-b5b9-3e3c55d7c268">Subscribe →</button>
         <p class="nl-micro" style="margin-top: 0.75rem;">Free. No spam. Unsubscribe anytime.</p>
       </div>
       <div class="nl-right">
@@ -336,7 +335,7 @@
   <section class="fcta">
     <h2>The most AI-fluent person in the room. That's you.</h2>
     <p>Join 8,000+ professionals who read The Decodr every week.</p>
-    <button class="nav-btn btn-primary" data-beehiiv-form="82afde12-dcd9-42d3-b5b9-3e3c55d7c268">Subscribe →</button>
+    <button class="btn-primary" data-beehiiv-form="82afde12-dcd9-42d3-b5b9-3e3c55d7c268">Subscribe →</button>
     <p class="fcta-micro" style="margin-top: 0.75rem;">Free. No spam. Unsubscribe anytime.</p>
   </section>
 
@@ -349,5 +348,13 @@
     </div>
   </footer>
 
+  <script>
+    document.querySelectorAll('[data-beehiiv-form]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        var navBtn = document.querySelector('.nav-links .nav-btn');
+        if (navBtn && navBtn !== btn) navBtn.click();
+      });
+    });
+  </script>
 </body>
 </html>
