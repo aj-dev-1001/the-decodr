@@ -319,7 +319,7 @@
   </footer>
 
   <script>
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbys0pFl3KdxHNR22Bn4VpYOZJCTYquvXUGFI34H-nMjcu_FHQiV9PrN6R39pQygHciNcQ/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzCJmCJoO9jo8SzQ6dvPac4uMFC2pJ8-NBWPXwWlZ7O8RimcJDHARlKDZEhNWupUO1Y1g/exec';
 
     function getRedirectURL() {
       const params = new URLSearchParams(window.location.search);
@@ -348,7 +348,8 @@
         timestamp: new Date().toISOString()
       });
 
-      fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: payload })
+      const getURL = APPS_SCRIPT_URL + '?' + payload.toString();
+      fetch(getURL, { method: 'GET', mode: 'no-cors' })
         .then(() => { window.location.href = redirect; })
         .catch(() => { window.location.href = redirect; });
 
