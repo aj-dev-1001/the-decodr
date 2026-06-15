@@ -386,16 +386,13 @@
 
       const payload = new URLSearchParams({
         email, function: func, designation,
-        source:    document.referrer || 'direct',
+        source:    new URLSearchParams(window.location.search).get('source') || 'direct',
         timestamp: new Date().toISOString()
       });
 
       const getURL = APPS_SCRIPT_URL + '?' + payload.toString();
-      fetch(getURL, { method: 'GET', mode: 'no-cors' })
-        .then(() => { window.location.href = redirect; })
-        .catch(() => { window.location.href = redirect; });
-
-      setTimeout(() => { window.location.href = redirect; }, 4000);
+      new Image().src = getURL;
+      window.location.href = redirect;
     });
   </script>
 
