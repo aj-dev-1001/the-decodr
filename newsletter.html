@@ -166,7 +166,7 @@
     .form-field input:focus,
     .form-field select:focus { border-color: var(--text); }
 
-    .form-field input.error { border-color: #DC2626; }
+    .form-field input.error, .form-field select.error { border-color: #DC2626; }
     .field-error { font-size: 12px; color: #DC2626; margin-top: 3px; display: none; }
 
     /* ── SUBMIT ── */
@@ -293,11 +293,13 @@
             <option value="Analytics">Analytics</option>
             <option value="Other">Other</option>
           </select>
+          <span class="field-error" id="functionError">Please select your function.</span>
         </div>
 
         <div class="form-field">
           <label for="designation">Designation</label>
           <input type="text" id="designation" name="designation" placeholder="e.g. Marketing Manager, VP Finance" required />
+          <span class="field-error" id="designationError">Please enter your designation.</span>
         </div>
 
         <button type="submit" class="btn-submit" id="submitBtn">
@@ -341,20 +343,42 @@
       const redirect    = getRedirectURL();
 
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const emailInput = document.getElementById('email');
-      const emailError = document.getElementById('emailError');
 
-      emailInput.classList.remove('error');
-      emailError.style.display = 'none';
+      // Reset all error states
+      ['email', 'function', 'designation'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('error');
+      });
+      ['emailError', 'functionError', 'designationError'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
 
-      if (!emailRegex.test(email)) {
-        emailInput.classList.add('error');
-        emailError.style.display = 'block';
-        emailInput.focus();
-        return;
+      // Validate each field
+      let hasError = false;
+
+      if (!email || !emailRegex.test(email)) {
+        const el = document.getElementById('email');
+        el.classList.add('error');
+        document.getElementById('emailError').style.display = 'block';
+        hasError = true;
       }
 
-      if (!func || !designation) return;
+      if (!func) {
+        const el = document.getElementById('function');
+        el.classList.add('error');
+        document.getElementById('functionError').style.display = 'block';
+        hasError = true;
+      }
+
+      if (!designation) {
+        const el = document.getElementById('designation');
+        el.classList.add('error');
+        document.getElementById('designationError').style.display = 'block';
+        hasError = true;
+      }
+
+      if (hasError) return;
 
       btn.classList.add('loading');
       btn.disabled = true;
