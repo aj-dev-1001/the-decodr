@@ -101,12 +101,79 @@
 
     /* ── NEWSLETTER SECTION ── */
     .newsletter { padding: 5.5rem 2.5rem; border-top: 1px solid var(--border); max-width: 900px; margin: 0 auto; }
-    .newsletter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-    .nl-left h2 { font-family: 'Instrument Serif', serif; font-size: 36px; font-weight: 400; letter-spacing: -0.8px; line-height: 1.2; color: var(--text); margin-bottom: 1rem; }
-    .nl-left p { font-size: 16px; color: var(--muted); line-height: 1.75; margin-bottom: 2rem; font-weight: 300; }
-    .nl-micro { font-size: 13px; color: var(--dimmed); }
-    .nl-right { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-    .nl-point { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); }
+    .newsletter-head { margin-bottom: 2.5rem; }
+    .newsletter-head h2 { font-family: 'Instrument Serif', serif; font-size: 38px; font-weight: 400; letter-spacing: -0.8px; line-height: 1.2; color: var(--text); margin-bottom: 0.75rem; }
+    .newsletter-head p { font-size: 16px; color: var(--muted); line-height: 1.75; font-weight: 300; }
+    .newsletter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: stretch; }
+
+    /* form card */
+    .nl-form-card { background: var(--bg); border: 1px solid var(--text); border-radius: 10px; padding: 2rem; display: flex; flex-direction: column; }
+    .nl-form-card h3 { font-size: 17px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .nl-form-card .form-sub { font-size: 14px; color: var(--muted); margin-bottom: 1.75rem; line-height: 1.6; }
+
+    .gate-form { display: flex; flex-direction: column; gap: 0.75rem; flex: 1; }
+    .form-field { display: flex; flex-direction: column; gap: 5px; }
+    .form-field label { font-size: 13px; font-weight: 500; color: var(--text); }
+    .form-field input,
+    .form-field select {
+      width: 100%;
+      padding: 10px 13px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text);
+      background: var(--bg);
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-field input::placeholder { color: var(--dimmed); }
+    .form-field input:focus,
+    .form-field select:focus { border-color: var(--text); }
+    .form-field input.error,
+    .form-field select.error { border-color: #DC2626; }
+    .field-error { font-size: 12px; color: #DC2626; display: none; }
+
+    .select-wrapper { position: relative; }
+    .select-wrapper select { padding-right: 34px; cursor: pointer; }
+    .select-wrapper .select-chevron {
+      position: absolute; right: 13px; top: 50%; transform: translateY(-50%);
+      pointer-events: none; width: 14px; height: 14px; color: var(--dimmed);
+    }
+    .select-placeholder { color: var(--dimmed); }
+
+    .btn-submit {
+      background: var(--text); color: #fff; border: none;
+      padding: 13px 24px; border-radius: 6px; font-size: 15px; font-weight: 500;
+      cursor: pointer; font-family: 'DM Sans', sans-serif; width: 100%;
+      margin-top: 0.5rem; transition: opacity 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-submit:hover { opacity: 0.85; }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-spinner {
+      width: 15px; height: 15px;
+      border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff;
+      border-radius: 50%; animation: spin 0.7s linear infinite; display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .btn-submit.loading .btn-spinner { display: block; }
+    .form-error { font-size: 13px; color: #DC2626; text-align: center; display: none; }
+    .form-micro { font-size: 13px; color: var(--dimmed); text-align: center; margin-top: 0.5rem; }
+
+    /* success state */
+    .form-success { display: none; flex: 1; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem 0; }
+    .success-icon { width: 44px; height: 44px; border-radius: 50%; background: #F0FDF4; border: 1px solid #BBF7D0; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+    .success-icon svg { width: 20px; height: 20px; color: #16A34A; }
+    .form-success h4 { font-size: 17px; font-weight: 500; color: var(--text); margin-bottom: 6px; }
+    .form-success p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    /* points */
+    .nl-points { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; height: 100%; }
+    .nl-point { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); flex: 1; display: flex; flex-direction: column; justify-content: center; }
     .nl-point:last-child { border-bottom: none; }
     .nl-point h4 { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
     .nl-point p { font-size: 15px; color: var(--muted); line-height: 1.65; }
@@ -173,8 +240,10 @@
       .offering { border-right: none; border-bottom: 1px solid var(--border); }
       .offering:last-child { border-bottom: none; }
       .newsletter { padding: 3rem 1.25rem; }
+      .newsletter-head h2 { font-size: 28px; }
       .newsletter-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .nl-left h2 { font-size: 28px; }
+      .nl-points { height: auto; }
+      .nl-point { flex: none; }
       .skills { padding: 3rem 1.25rem; }
       .skills h2 { font-size: 26px; }
       .skills-grid { grid-template-columns: 1fr; }
@@ -196,7 +265,7 @@
       <a href="#newsletter">Newsletter</a>
       <a href="#skills">Skills</a>
       <a href="#about">About</a>
-      <a href="https://read.thedecodr.com" class="nav-btn">Subscribe</a>
+      <a href="#newsletter" class="nav-btn">Subscribe</a>
     </div>
   </nav>
 
@@ -208,7 +277,7 @@
     <h1>Your destination for AI<span>that actually makes sense</span></h1>
     <p class="hero-sub">The Decodr is where non-tech professionals come to understand AI. No jargon, no clickbait, no "X just killed Y" headlines. Just well-researched content that respects your intelligence and your time.</p>
     <div class="hero-actions">
-      <a href="https://read.thedecodr.com" class="btn-primary">Subscribe to the newsletter →</a>
+      <a href="#newsletter" class="btn-primary">Subscribe to the newsletter →</a>
       <a href="#skills" class="btn-ghost">Browse AI skills</a>
     </div>
   </section>
@@ -261,15 +330,70 @@
   </section>
 
   <section class="newsletter" id="newsletter">
+    <div class="newsletter-head">
+      <p class="section-tag">The Newsletter</p>
+      <h2>AI, decoded. Every week.</h2>
+      <p>One focused edition, every week. Whether it's a new AI development, a how-to guide, or a tool breakdown. Everything is researched thoroughly and written in plain English.</p>
+    </div>
     <div class="newsletter-grid">
-      <div class="nl-left">
-        <p class="section-tag">The Newsletter</p>
-        <h2>AI, decoded. Every week.</h2>
-        <p>One focused edition, every week. Whether it's a new AI development, a how-to guide, or a tool breakdown. Everything is researched thoroughly and written in plain English.</p>
-        <a href="https://read.thedecodr.com" class="btn-primary">Subscribe →</a>
-        <p class="nl-micro" style="margin-top: 0.75rem;">Free. No spam. Unsubscribe anytime.</p>
+
+      <div class="nl-form-card">
+        <div id="nlFormView" style="display:flex; flex-direction:column; flex:1;">
+          <h3>Subscribe to The Decodr</h3>
+          <p class="form-sub">Free. Unsubscribe anytime. Takes 30 seconds.</p>
+          <form class="gate-form" id="nlForm" novalidate>
+            <div class="form-field">
+              <label for="nl-email">Work email</label>
+              <input type="email" id="nl-email" name="email" placeholder="you@company.com" required autocomplete="email" />
+              <span class="field-error" id="nl-emailError">Please enter a valid email address.</span>
+            </div>
+            <div class="form-field">
+              <label for="nl-function">Function</label>
+              <div class="select-wrapper">
+                <select id="nl-function" name="function" required class="select-placeholder">
+                  <option value="" disabled selected>Select your function</option>
+                  <option value="Product">Product</option>
+                  <option value="Finance">Finance</option>
+                  <option value="Marketing">Marketing</option>
+                  <option value="HR">HR</option>
+                  <option value="Operations">Operations</option>
+                  <option value="Strategy">Strategy</option>
+                  <option value="Sales">Sales</option>
+                  <option value="Analytics">Analytics</option>
+                  <option value="Other">Other</option>
+                </select>
+                <svg class="select-chevron" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 5l5 5 5-5"/>
+                </svg>
+              </div>
+              <span class="field-error" id="nl-functionError">Please select your function.</span>
+            </div>
+            <div class="form-field">
+              <label for="nl-designation">Designation</label>
+              <input type="text" id="nl-designation" name="designation" placeholder="e.g. Marketing Manager, VP Finance" required />
+              <span class="field-error" id="nl-designationError">Please enter your designation.</span>
+            </div>
+            <button type="submit" class="btn-submit" id="nlSubmitBtn">
+              <span class="btn-spinner"></span>
+              <span class="btn-label">Subscribe →</span>
+            </button>
+            <p class="form-error" id="nl-formError">Something went wrong. Please try again.</p>
+            <p class="form-micro">Free. No spam. Unsubscribe anytime.</p>
+          </form>
+        </div>
+
+        <div class="form-success" id="nlSuccessView">
+          <div class="success-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <h4>You're in.</h4>
+          <p>Redirecting you to Substack to complete your subscription...</p>
+        </div>
       </div>
-      <div class="nl-right">
+
+      <div class="nl-points">
         <div class="nl-point">
           <h4>Actually researched</h4>
           <p>Every edition is built on primary sources, not recycled takes from other newsletters. If we say something, we can back it up.</p>
@@ -287,13 +411,14 @@
           <p>No prerequisite knowledge required. If something needs context, we give it to you without making you feel dumb for asking.</p>
         </div>
       </div>
+
     </div>
   </section>
 
   <section class="skills" id="skills">
     <p class="section-tag">AI Skills and Prompts</p>
     <h2>Stop starting from scratch every time.</h2>
-    <p class="skills-subhead">Ready-made Claude skills and prompt templates for you to use. </p>
+    <p class="skills-subhead">Ready-made Claude skills and prompt templates for you to use.</p>
     <div class="skills-grid">
       <div class="skill-card">
         <div class="skill-tag">Writing</div>
@@ -343,7 +468,7 @@
   <section class="fcta">
     <h2>The most AI-fluent person in the room. That's you.</h2>
     <p>Join 8,000+ professionals who read The Decodr every week.</p>
-    <a href="https://read.thedecodr.com" class="btn-primary">Subscribe →</a>
+    <a href="#newsletter" class="btn-primary">Subscribe →</a>
     <p class="fcta-micro" style="margin-top: 0.75rem;">Free. No spam. Unsubscribe anytime.</p>
   </section>
 
@@ -355,6 +480,76 @@
       <a href="https://www.linkedin.com/in/ankurajhaveri" target="_blank" rel="noopener">LinkedIn</a>
     </div>
   </footer>
+
+  <script>
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzCJmCJoO9jo8SzQ6dvPac4uMFC2pJ8-NBWPXwWlZ7O8RimcJDHARlKDZEhNWupUO1Y1g/exec';
+    const SUBSTACK_URL = 'https://lazyai.substack.com';
+
+    const select = document.getElementById('nl-function');
+    select.addEventListener('change', function () {
+      this.classList.remove('select-placeholder');
+    });
+
+    document.getElementById('nlForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const email       = document.getElementById('nl-email').value.trim();
+      const func        = document.getElementById('nl-function').value;
+      const designation = document.getElementById('nl-designation').value.trim();
+      const btn         = document.getElementById('nlSubmitBtn');
+      const errorEl     = document.getElementById('nl-formError');
+      const emailRegex  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      // reset errors
+      ['nl-email', 'nl-function', 'nl-designation'].forEach(id => {
+        document.getElementById(id).classList.remove('error');
+      });
+      ['nl-emailError', 'nl-functionError', 'nl-designationError'].forEach(id => {
+        document.getElementById(id).style.display = 'none';
+      });
+
+      let hasError = false;
+
+      if (!email || !emailRegex.test(email)) {
+        document.getElementById('nl-email').classList.add('error');
+        document.getElementById('nl-emailError').style.display = 'block';
+        hasError = true;
+      }
+      if (!func) {
+        document.getElementById('nl-function').classList.add('error');
+        document.getElementById('nl-functionError').style.display = 'block';
+        hasError = true;
+      }
+      if (!designation) {
+        document.getElementById('nl-designation').classList.add('error');
+        document.getElementById('nl-designationError').style.display = 'block';
+        hasError = true;
+      }
+
+      if (hasError) return;
+
+      btn.classList.add('loading');
+      btn.disabled = true;
+      errorEl.style.display = 'none';
+
+      const payload = new URLSearchParams({
+        email,
+        function: func,
+        designation,
+        source:    new URLSearchParams(window.location.search).get('source') || 'direct',
+        timestamp: new Date().toISOString()
+      });
+
+      new Image().src = APPS_SCRIPT_URL + '?' + payload.toString();
+
+      document.getElementById('nlFormView').style.display = 'none';
+      document.getElementById('nlSuccessView').style.display = 'flex';
+
+      setTimeout(function () {
+        window.location.href = SUBSTACK_URL;
+      }, 1500);
+    });
+  </script>
 
 </body>
 </html>
