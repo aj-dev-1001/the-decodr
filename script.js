@@ -38,7 +38,13 @@ function render() {
     const targetId = link.getAttribute('href').slice(1);
     link.classList.toggle('active', slides[current] && slides[current].id === targetId);
   });
-  history.replaceState(null, '', '#' + (slides[current] ? slides[current].id : ''));
+  // The first slide is the homepage itself — no hash for it, so the URL
+  // stays plain (thedecodr.com, not thedecodr.com/#hero) until someone
+  // actually navigates to a specific section.
+  const newUrl = current === 0
+    ? window.location.pathname + window.location.search
+    : '#' + slides[current].id;
+  history.replaceState(null, '', newUrl);
 }
 
 function goTo(index) {
