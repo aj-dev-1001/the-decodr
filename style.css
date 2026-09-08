@@ -288,6 +288,8 @@ h1, h2, h3 {
   margin-top: var(--gap-md);
 }
 
+.card-grid-2 { grid-template-columns: repeat(2, 1fr); }
+
 .card {
   padding: 1.5rem;
   border-radius: 16px;
