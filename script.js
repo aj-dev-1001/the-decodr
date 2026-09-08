@@ -1,0 +1,122 @@
+// Mobile nav toggle
+const navToggle = document.getElementById('navToggle');
+const nav = document.getElementById('nav');
+
+navToggle.addEventListener('click', () => {
+  const isOpen = nav.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', String(isOpen));
+});
+
+// Desktop uses the fade-slide fold effect; mobile scrolls normally (see CSS).
+// Match the same 780px breakpoint the stylesheet uses.
+const isMobile = () => window.matchMedia('(max-width: 780px)').matches;
+
+// Fade-slide navigation
+const slidesWrap = document.getElementById('slides');
+const slides = Array.from(slidesWrap.querySelectorAll('.slide'));
+const navLinks = document.querySelectorAll('[data-slide-link]');
+const dotsWrap = document.getElementById('slideDots');
+
+let current = 0;
+let animating = false;
+const TRANSITION_MS = 650;
+
+slides.forEach((slide, i) => {
+  const dot = document.createElement('button');
+  dot.className = 'slide-dot';
+  dot.setAttribute('aria-label', 'Go to ' + (slide.id || 'section ' + i));
+  dot.addEventListener('click', () => goTo(i));
+  dotsWrap.appendChild(dot);
+});
+
+const dots = Array.from(dotsWrap.querySelectorAll('.slide-dot'));
+
+function render() {
+  slides.forEach((slide, i) => slide.classList.toggle('active', i === current));
+  dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
+  navLinks.forEach((link) => {
+    const targetId = link.getAttribute('href').slice(1);
+    link.classList.toggle('active', slides[current] && slides[current].id === targetId);
+  });
+  history.replaceState(null, '', '#' + (slides[current] ? slides[current].id : ''));
+}
+
+function goTo(index) {
+  if (animating || index === current || index < 0 || index >= slides.length) return;
+  animating = true;
+  current = index;
+  render();
+  setTimeout(() => { animating = false; }, TRANSITION_MS);
+}
+
+function next() { goTo(current + 1); }
+function prev() { goTo(current - 1); }
+
+// Wheel navigation (desktop only)
+let wheelCooldown = false;
+window.addEventListener('wheel', (e) => {
+  if (isMobile()) return;
+  if (wheelCooldown) return;
+  if (Math.abs(e.deltaY) < 10) return;
+  wheelCooldown = true;
+  if (e.deltaY > 0) next(); else prev();
+  setTimeout(() => { wheelCooldown = false; }, TRANSITION_MS + 100);
+}, { passive: true });
+
+// Touch swipe navigation (desktop only — mobile uses native scroll)
+let touchStartY = 0;
+slidesWrap.addEventListener('touchstart', (e) => {
+  if (isMobile()) return;
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+slidesWrap.addEventListener('touchend', (e) => {
+  if (isMobile()) return;
+  const delta = touchStartY - e.changedTouches[0].clientY;
+  if (Math.abs(delta) < 50) return;
+  if (delta > 0) next(); else prev();
+}, { passive: true });
+
+// Keyboard navigation (desktop only)
+window.addEventListener('keydown', (e) => {
+  if (isMobile()) return;
+  if (['ArrowDown', 'PageDown'].includes(e.key)) { e.preventDefault(); next(); }
+  else if (['ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); prev(); }
+  else if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+  else if (e.key === 'End') { e.preventDefault(); goTo(slides.length - 1); }
+});
+
+// Nav link clicks
+navLinks.forEach((link) => {
+  link.addEventListener('click', (e) => {
+    if (isMobile()) {
+      // Let the browser do a normal anchor scroll to the section.
+      nav.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      return;
+    }
+    e.preventDefault();
+    const targetId = link.getAttribute('href').slice(1);
+    const index = slides.findIndex((s) => s.id === targetId);
+    if (index !== -1) goTo(index);
+    nav.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  });
+});
+
+// Initial slide from hash (desktop fold state; harmless on mobile)
+const initialId = window.location.hash.slice(1);
+const initialIndex = slides.findIndex((s) => s.id === initialId);
+current = initialIndex !== -1 ? initialIndex : 0;
+render();
+
+// Email built at click time, not present as plain text/href in the HTML —
+// keeps it off simple scraper bots that only read the page source.
+const emailBtn = document.getElementById('emailBtn');
+if (emailBtn) {
+  const user = 'hey';
+  const domain = 'ankurjhaveri.com';
+  emailBtn.addEventListener('click', () => {
+    window.location.href = 'mailto:' + user + '@' + domain;
+  });
+}

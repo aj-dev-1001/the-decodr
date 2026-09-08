@@ -1,0 +1,427 @@
+/* ---------- Reset & tokens ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; }
+img { max-width: 100%; display: block; }
+
+:root {
+  --ink: #17171a;
+  --muted: #63636c;
+  --faint: #97979f;
+  --paper: #fdfdfc;
+  --paper-alt: #f4f3f0;
+  --line: #e4e2dc;
+  --accent: #4338ca;
+  --accent-soft: #eeecfc;
+  --font-head: 'Fraunces', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+
+  --max-width: 880px;
+  --gap-xs: 0.5rem;
+  --gap-sm: 1rem;
+  --gap-md: 1.5rem;
+  --gap-lg: 2.25rem;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.55;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gap-md);
+}
+
+a { color: inherit; text-decoration: none; }
+
+h1, h2, h3 {
+  font-family: var(--font-head);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 58px;
+  gap: var(--gap-md);
+}
+
+.logo {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-lg);
+  font-size: 0.88rem;
+  margin-left: 2.5rem;
+}
+
+.nav a { color: var(--muted); transition: color 0.15s ease; }
+.nav a:hover { color: var(--ink); }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.header-cta {
+  padding: 0.55rem 1.25rem !important;
+  font-size: 0.82rem !important;
+  box-shadow: 0 2px 8px rgba(67, 56, 202, 0.25);
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 30px;
+  height: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.nav-toggle span {
+  display: block;
+  height: 2px;
+  background: var(--ink);
+  border-radius: 2px;
+}
+
+/* ---------- Fold/fade system (desktop only — see mobile override below) ---------- */
+.slides {
+  position: relative;
+  height: calc(100vh - 58px);
+  height: calc(100dvh - 58px);
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+.site-section {
+  padding: 4.5rem 0;
+  scroll-margin-top: 58px;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  transition: opacity 0.6s ease;
+}
+
+.slide.active { opacity: 1; visibility: visible; z-index: 1; }
+
+.slide .container { width: 100%; }
+
+.slide-dots {
+  position: fixed;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  z-index: 40;
+}
+
+.slide-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--line);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.slide-dot:hover { transform: scale(1.2); }
+.slide-dot.active { background: var(--ink); transform: scale(1.3); }
+
+.section-alt { background: var(--paper-alt); }
+
+.kicker {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 0.6rem;
+}
+
+/* No per-element width overrides anywhere in this file, on purpose. There is
+   exactly ONE width in this layout: --max-width on .container (880px — narrow
+   enough that body text reads fine without a separate, narrower cap). Every
+   direct child of .container — headline, paragraph, card grid, tag row,
+   button row — is a plain block at 100% of that single container. Nothing
+   can ever end up narrower or wider than anything else in the same section. */
+
+.headline {
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  margin: 0 0 0.75rem;
+  line-height: 1.15;
+}
+
+.lede {
+  font-size: 1rem;
+  color: var(--muted);
+  margin: 0 0 1.5rem;
+}
+
+/* ---------- Hero ---------- */
+.hero { padding-top: 3.5rem; }
+
+.hero h1 {
+  font-size: clamp(2.1rem, 4.4vw, 3.2rem);
+  margin: 0 0 1.1rem;
+  line-height: 1.1;
+}
+
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--muted);
+  margin: 0 0 1.75rem;
+}
+
+.hero-actions { display: flex; gap: var(--gap-sm); flex-wrap: wrap; }
+
+.hero-proof-line {
+  margin: 1.75rem 0 0;
+  font-size: 0.85rem;
+  color: var(--faint);
+}
+
+/* ---------- Proof line (Problem section) ---------- */
+.proof-line {
+  margin: 1.5rem 0 0;
+  font-size: 0.85rem;
+  color: var(--faint);
+}
+
+/* ---------- Buttons & links ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.8rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 0.88rem;
+  letter-spacing: 0.01em;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn:hover {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(23, 23, 26, 0.14);
+}
+
+.btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn-primary:hover { background: var(--accent); box-shadow: 0 6px 16px rgba(67, 56, 202, 0.28); }
+
+.btn-secondary { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+
+.text-link {
+  display: inline-block;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-right: var(--gap-sm);
+  transition: opacity 0.15s ease;
+}
+
+.text-link:last-child { margin-right: 0; }
+.text-link:hover { opacity: 0.7; text-decoration: underline; }
+
+.inline-links { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.25rem; }
+.inline-links .text-link { margin-right: 0; }
+.sep { color: var(--line); font-weight: 600; }
+
+/* ---------- Card grid ---------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: var(--gap-md);
+}
+
+.card {
+  padding: 1.5rem;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  box-shadow: 0 1px 2px rgba(23, 23, 26, 0.03), 0 8px 20px rgba(23, 23, 26, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--line));
+  box-shadow: 0 2px 4px rgba(23, 23, 26, 0.04), 0 16px 32px rgba(23, 23, 26, 0.1);
+}
+
+.card h3 { font-size: 1.05rem; margin-top: 0.1rem; }
+.card p { font-size: 0.87rem; color: var(--muted); flex: 1; margin: 0; }
+
+.cell-kicker {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+
+/* ---------- Fit tags ---------- */
+.fit-tags {
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.fit-tag {
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* ---------- Founder ---------- */
+.founder-row {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.founder-photo {
+  flex-shrink: 0;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.founder-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+.founder-text { flex: 1; min-width: 0; }
+
+.founder-text p { margin: 0; font-size: 0.96rem; color: var(--muted); line-height: 1.6; }
+
+/* ---------- Footer ---------- */
+.footer-mini {
+  margin: var(--gap-lg) 0 0;
+  font-size: 0.78rem;
+  color: var(--faint);
+}
+
+.footer-mini a:hover { color: var(--accent); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 780px) {
+  .nav {
+    position: fixed;
+    top: 58px;
+    left: 0;
+    right: 0;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--gap-md);
+    gap: var(--gap-sm);
+    transform: translateY(-150%);
+    opacity: 0;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .nav.open { transform: translateY(0); opacity: 1; }
+  .nav-toggle { display: flex; }
+
+  .header-cta {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.78rem !important;
+  }
+
+  .site-section { padding: 3rem 0; }
+
+  /* Below 780px, the fold/fade system is fully off: normal document flow,
+     no fixed-height slides, no fade transitions, no dots. Every section
+     just stacks and scrolls like an ordinary page. */
+  .slides {
+    position: static;
+    height: auto;
+    overflow: visible;
+    overscroll-behavior: auto;
+  }
+
+  .slide {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    overflow-y: visible;
+    overscroll-behavior: auto;
+    transition: none;
+  }
+
+  .slide + .slide { border-top: 1px solid var(--line); }
+
+  .slide-dots { display: none; }
+
+  .founder-row { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+  .founder-photo { width: 120px; height: 120px; }
+
+  .card-grid { grid-template-columns: 1fr; }
+}
