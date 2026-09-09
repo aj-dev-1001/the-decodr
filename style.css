@@ -47,6 +47,10 @@ h1, h2, h3 {
   margin: 0;
 }
 
+/* Fraunces' default "J" has a pronounced curled descender that reads as
+   crooked at display sizes; swap just that glyph for a conventional serif. */
+.j-alt { font-family: Georgia, 'Times New Roman', serif; }
+
 /* ---------- Header ---------- */
 .site-header {
   position: sticky;
@@ -289,6 +293,7 @@ h1, h2, h3 {
 }
 
 .card-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.card-grid-4 { grid-template-columns: repeat(4, 1fr); }
 
 .card {
   padding: 1.5rem;
@@ -318,6 +323,24 @@ h1, h2, h3 {
   letter-spacing: 0.06em;
   color: var(--accent);
 }
+
+/* Publications are proof points, not features — give them more visual
+   weight than a generic feature card: bigger padding, and the stat reads
+   as a bold headline number instead of a small caps label. */
+#publications .card { padding: 2rem; }
+
+#publications .cell-kicker {
+  display: block;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 1.6rem;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--accent);
+  margin-bottom: 0.15rem;
+}
+
+#publications .card h3 { font-size: 1.25rem; }
 
 /* ---------- Fit tags ---------- */
 .fit-tags {
@@ -360,7 +383,48 @@ h1, h2, h3 {
 
 .founder-text { flex: 1; min-width: 0; }
 
-.founder-text p { margin: 0; font-size: 0.96rem; color: var(--muted); line-height: 1.6; }
+.founder-text p { margin: 0; font-size: 1rem; color: var(--muted); line-height: 1.6; }
+
+/* ---------- Contact (closing CTA band — deliberately bolder than every
+   other section, since it's the last thing a reader sees) ---------- */
+.contact {
+  background: var(--accent);
+  color: #fff;
+}
+
+.contact .kicker { color: rgba(255, 255, 255, 0.75); }
+
+.contact .headline {
+  color: #fff;
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+}
+
+.contact .lede { color: rgba(255, 255, 255, 0.85); }
+
+.contact .btn-primary {
+  background: #fff;
+  color: var(--accent);
+  border-color: #fff;
+}
+
+.contact .btn-primary:hover {
+  background: #fff;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.contact .btn-secondary {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.contact .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border-color: #fff;
+}
+
+.contact .footer-mini { color: rgba(255, 255, 255, 0.6); }
+.contact .footer-mini a:hover { color: #fff; }
 
 /* ---------- Footer ---------- */
 .footer-mini {
