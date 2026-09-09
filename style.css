@@ -47,9 +47,11 @@ h1, h2, h3 {
   margin: 0;
 }
 
-/* Fraunces' default "J" has a pronounced curled descender that reads as
-   crooked at display sizes; swap just that glyph for a conventional serif. */
-.j-alt { font-family: Georgia, 'Times New Roman', serif; }
+/* Fraunces' default "J" and lowercase "f" both have pronounced decorative
+   flourishes that read as crooked at display sizes. Whenever a heading
+   (h1/h2/h3) contains one, wrap just that single letter in this span to
+   swap it for a conventional serif — never the whole word. */
+.glyph-fix { font-family: Georgia, 'Times New Roman', serif; }
 
 /* ---------- Header ---------- */
 .site-header {
@@ -199,6 +201,7 @@ h1, h2, h3 {
   font-size: clamp(1.6rem, 3vw, 2.1rem);
   margin: 0 0 0.75rem;
   line-height: 1.15;
+  text-wrap: balance;
 }
 
 .lede {
@@ -214,6 +217,7 @@ h1, h2, h3 {
   font-size: clamp(2.1rem, 4.4vw, 3.2rem);
   margin: 0 0 1.1rem;
   line-height: 1.1;
+  text-wrap: balance;
 }
 
 .hero-sub {
@@ -293,7 +297,6 @@ h1, h2, h3 {
 }
 
 .card-grid-2 { grid-template-columns: repeat(2, 1fr); }
-.card-grid-4 { grid-template-columns: repeat(4, 1fr); }
 
 .card {
   padding: 1.5rem;
@@ -325,42 +328,17 @@ h1, h2, h3 {
 }
 
 /* Publications are proof points, not features — give them more visual
-   weight than a generic feature card: bigger padding, and the stat reads
-   as a bold headline number instead of a small caps label. */
+   weight than a generic feature card via padding. The publication NAME is
+   the headline element here (bigger than default .card h3); the stat is
+   a small supporting label above it, not the other way around. */
 #publications .card { padding: 2rem; }
 
 #publications .cell-kicker {
-  display: block;
-  font-family: var(--font-head);
-  font-weight: 600;
-  font-size: 1.6rem;
-  text-transform: none;
-  letter-spacing: normal;
-  color: var(--accent);
-  margin-bottom: 0.15rem;
+  font-size: 0.72rem;
+  color: var(--faint);
 }
 
-#publications .card h3 { font-size: 1.25rem; }
-
-/* ---------- Fit tags ---------- */
-.fit-tags {
-  margin: 1.75rem 0 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-.fit-tag {
-  padding: 0.6rem 1.1rem;
-  border-radius: 999px;
-  background: #ffffff;
-  border: 1px solid var(--line);
-  font-size: 0.86rem;
-  font-weight: 500;
-  color: var(--ink);
-}
+#publications .card h3 { font-size: 1.6rem; margin-top: 0.3rem; }
 
 /* ---------- Founder ---------- */
 .founder-row {
@@ -385,46 +363,31 @@ h1, h2, h3 {
 
 .founder-text p { margin: 0; font-size: 1rem; color: var(--muted); line-height: 1.6; }
 
-/* ---------- Contact (closing CTA band — deliberately bolder than every
-   other section, since it's the last thing a reader sees) ---------- */
-.contact {
-  background: var(--accent);
-  color: #fff;
+/* ---------- Contact (same colors as every other section — the fix here
+   is layout/composition, not a color block: text on one side, a bordered
+   CTA panel on the other, so the section carries real visual weight
+   without breaking the site's palette) ---------- */
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
 }
 
-.contact .kicker { color: rgba(255, 255, 255, 0.75); }
+.contact-text { flex: 1.2; min-width: 0; }
+.contact-text .lede { margin: 0; }
 
-.contact .headline {
-  color: #fff;
-  font-size: clamp(1.9rem, 4vw, 2.6rem);
+.contact-card {
+  flex: 1;
+  min-width: 0;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 1px 2px rgba(23, 23, 26, 0.03), 0 8px 20px rgba(23, 23, 26, 0.05);
 }
 
-.contact .lede { color: rgba(255, 255, 255, 0.85); }
-
-.contact .btn-primary {
-  background: #fff;
-  color: var(--accent);
-  border-color: #fff;
-}
-
-.contact .btn-primary:hover {
-  background: #fff;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
-}
-
-.contact .btn-secondary {
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.4);
-}
-
-.contact .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  border-color: #fff;
-}
-
-.contact .footer-mini { color: rgba(255, 255, 255, 0.6); }
-.contact .footer-mini a:hover { color: #fff; }
+.contact-card .hero-actions { margin-bottom: 1.25rem; }
+.contact-card .footer-mini { margin: 0; }
 
 /* ---------- Footer ---------- */
 .footer-mini {
@@ -488,6 +451,9 @@ h1, h2, h3 {
 
   .founder-row { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
   .founder-photo { width: 120px; height: 120px; }
+
+  .contact-row { flex-direction: column; align-items: stretch; gap: 1.5rem; }
+  .contact-card { padding: 1.5rem; }
 
   .card-grid { grid-template-columns: 1fr; }
 }
