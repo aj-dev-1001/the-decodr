@@ -217,14 +217,19 @@ h1, h2, h3 {
 .hero { padding-top: 3.5rem; }
 
 .hero h1 {
-  /* Max reduced from 3.2rem to 3rem — just enough that "information" fits
-     on the first line instead of wrapping alone; measured precisely
-     (canvas text measurement against the actual container width) rather
-     than guessed. */
+  /* Max reduced from 3.2rem to 3rem so "information" fits on line 1 —
+     but the real bug was text-wrap:balance below. It doesn't just wrap
+     to fit available width; it forces the "most even" split of however
+     many lines the text needs, and for this sentence that was choosing
+     to break after "of" almost regardless of font-size (confirmed by
+     testing directly against the live DOM, not a synthetic text
+     measurement — a plain canvas measurement misses this because it
+     doesn't run the browser's actual balance/line-break algorithm).
+     Fix is both: drop the max size a bit, AND drop balance entirely —
+     same class of bug already found and fixed on .headline. */
   font-size: clamp(2.1rem, 4.4vw, 3rem);
   margin: 0 0 1.1rem;
   line-height: 1.1;
-  text-wrap: balance;
 }
 
 .hero-sub {
@@ -286,6 +291,18 @@ h1, h2, h3 {
   color: var(--accent);
   margin-right: var(--gap-sm);
   transition: opacity 0.15s ease;
+}
+
+/* Reset native chrome when .text-link is used on a <button> (the email
+   link has to be a button — its address is built by JS on click, not a
+   plain mailto: href, to keep it off scraper bots) so it reads as plain
+   text, not a button. */
+button.text-link {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .text-link:last-child { margin-right: 0; }
@@ -369,15 +386,6 @@ h1, h2, h3 {
    kicker's font-size and color, which is exactly why "Who's behind this"
    rendered differently from every other section's kicker. */
 .founder-text p:not(.kicker) { margin: 0; font-size: 1rem; color: var(--muted); line-height: 1.6; }
-
-/* ---------- Footer ---------- */
-.footer-mini {
-  margin: var(--gap-lg) 0 0;
-  font-size: 0.78rem;
-  color: var(--faint);
-}
-
-.footer-mini a:hover { color: var(--accent); }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 780px) {
