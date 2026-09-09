@@ -201,7 +201,10 @@ h1, h2, h3 {
   font-size: clamp(1.6rem, 3vw, 2.1rem);
   margin: 0 0 0.75rem;
   line-height: 1.15;
-  text-wrap: balance;
+  /* No text-wrap:balance here (unlike .hero h1) — tried it, and on this
+     longer heading Chrome's balance algorithm chose a badly uneven split
+     (a short, half-empty first line) instead of a better-filled one.
+     Plain wrapping fills each line properly; leave it alone. */
 }
 
 .lede {
@@ -214,7 +217,11 @@ h1, h2, h3 {
 .hero { padding-top: 3.5rem; }
 
 .hero h1 {
-  font-size: clamp(2.1rem, 4.4vw, 3.2rem);
+  /* Max reduced from 3.2rem to 3rem — just enough that "information" fits
+     on the first line instead of wrapping alone; measured precisely
+     (canvas text measurement against the actual container width) rather
+     than guessed. */
+  font-size: clamp(2.1rem, 4.4vw, 3rem);
   margin: 0 0 1.1rem;
   line-height: 1.1;
   text-wrap: balance;
@@ -284,7 +291,7 @@ h1, h2, h3 {
 .text-link:last-child { margin-right: 0; }
 .text-link:hover { opacity: 0.7; text-decoration: underline; }
 
-.inline-links { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.25rem; }
+.inline-links { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.25rem; }
 .inline-links .text-link { margin-right: 0; }
 .sep { color: var(--line); font-weight: 600; }
 
@@ -329,14 +336,10 @@ h1, h2, h3 {
 
 /* Publications are proof points, not features — give them more visual
    weight than a generic feature card via padding. The publication NAME is
-   the headline element here (bigger than default .card h3); the stat is
-   a small supporting label above it, not the other way around. */
+   the headline element here (bigger than default .card h3); the stat
+   above it keeps the default .cell-kicker styling (small, bold, accent
+   color) unchanged — same as every other section's card label. */
 #publications .card { padding: 2rem; }
-
-#publications .cell-kicker {
-  font-size: 0.72rem;
-  color: var(--faint);
-}
 
 #publications .card h3 { font-size: 1.6rem; margin-top: 0.3rem; }
 
@@ -361,33 +364,11 @@ h1, h2, h3 {
 
 .founder-text { flex: 1; min-width: 0; }
 
-.founder-text p { margin: 0; font-size: 1rem; color: var(--muted); line-height: 1.6; }
-
-/* ---------- Contact (same colors as every other section — the fix here
-   is layout/composition, not a color block: text on one side, a bordered
-   CTA panel on the other, so the section carries real visual weight
-   without breaking the site's palette) ---------- */
-.contact-row {
-  display: flex;
-  align-items: center;
-  gap: 2.5rem;
-}
-
-.contact-text { flex: 1.2; min-width: 0; }
-.contact-text .lede { margin: 0; }
-
-.contact-card {
-  flex: 1;
-  min-width: 0;
-  background: #ffffff;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 1px 2px rgba(23, 23, 26, 0.03), 0 8px 20px rgba(23, 23, 26, 0.05);
-}
-
-.contact-card .hero-actions { margin-bottom: 1.25rem; }
-.contact-card .footer-mini { margin: 0; }
+/* :not(.kicker) matters — without it this rule's higher specificity
+   (class + tag vs. .kicker's class alone) silently overrode the section
+   kicker's font-size and color, which is exactly why "Who's behind this"
+   rendered differently from every other section's kicker. */
+.founder-text p:not(.kicker) { margin: 0; font-size: 1rem; color: var(--muted); line-height: 1.6; }
 
 /* ---------- Footer ---------- */
 .footer-mini {
@@ -451,9 +432,6 @@ h1, h2, h3 {
 
   .founder-row { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
   .founder-photo { width: 120px; height: 120px; }
-
-  .contact-row { flex-direction: column; align-items: stretch; gap: 1.5rem; }
-  .contact-card { padding: 1.5rem; }
 
   .card-grid { grid-template-columns: 1fr; }
 }
